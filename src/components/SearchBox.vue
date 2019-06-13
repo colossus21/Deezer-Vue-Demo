@@ -19,7 +19,7 @@
         }),
         methods: {
             search() {
-
+                this.$store.commit('setSearchTerm', this.searchTerm)
             }
         }
     }
