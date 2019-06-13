@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    searchTrackAPI: "https://api.deezer.com/search?q=",
-    searchResults: [],
+    corsHackAPI: "https://cors-anywhere.herokuapp.com/",
+    searchTrackAPI: "http://api.deezer.com/search?q=",
+    searchResults: {},
     searchTerm: ""
   },
   getters: {
@@ -18,6 +19,13 @@ export default new Vuex.Store({
     setSearchTerm: (state, payload) => { state.searchTerm = payload }
   },
   actions: {
-
+    searchTrack: (context) => {
+      axios.get(`${context.state.corsHackAPI}${context.state.searchTrackAPI}${context.state.searchTerm}`)
+          .then(res => {
+            context.commit('setResults', res.data)
+            console.log(res)
+          })
+          .catch(err => console.log(err));
+    },
   }
 })

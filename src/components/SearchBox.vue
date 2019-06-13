@@ -19,7 +19,14 @@
         }),
         methods: {
             search() {
+                let search = document.querySelector(".svg-icon")
+                search.classList.add("animate-search")
                 this.$store.commit('setSearchTerm', this.searchTerm)
+                this.$store.dispatch('searchTrack').then(res => {
+                    this.$emit('resultsFound')
+                }).catch(err => {
+
+                })
             }
         }
     }
@@ -83,5 +90,16 @@
 
     .svg-icon:hover {
         stroke: lightyellow;
+    }
+
+    .animate-search {
+        animation: AnimateSearch 1s infinite linear;
+    }
+
+    @keyframes AnimateSearch {
+        1%,33% { stroke: white; transform: translateY(0px) }
+        33%, 66% { stroke: lightgrey; transform: translateY(2px) }
+        66%, 99% { stroke: slategrey; transform: translateY(-2px) }
+        /*66.66%, 100% { stroke: lightblue; transform: translateY(2px) }*/
     }
 </style>

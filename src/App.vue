@@ -20,6 +20,6 @@
     align-items: center;
   }
   body {
-    overflow: hidden;
+    overflow-x: hidden;
   }
 </style>
