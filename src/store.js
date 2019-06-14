@@ -8,10 +8,12 @@ export default new Vuex.Store({
     corsHackAPI: "https://cors-anywhere.herokuapp.com/",
     searchTrackAPI: "http://api.deezer.com/search?q=",
     searchResults: {},
-    searchTerm: ""
+    searchTerm: "",
   },
   getters: {
-    getResults: (state) => state.searchResults,
+    getResults: (state) => {
+      return state.searchResults
+    },
     getSearchTerm: (state) => state.searchTerm
   },
   mutations: {
@@ -20,12 +22,18 @@ export default new Vuex.Store({
   },
   actions: {
     searchTrack: (context) => {
-      axios.get(`${context.state.corsHackAPI}${context.state.searchTrackAPI}${context.state.searchTerm}`)
-          .then(res => {
-            context.commit('setResults', res.data)
-            console.log(res)
-          })
-          .catch(err => console.log(err));
+      return new Promise((resolve, reject) => {
+        axios.get(`${context.state.corsHackAPI}${context.state.searchTrackAPI}${context.state.searchTerm}`)
+            .then(res => {
+              context.commit('setResults', res.data)
+              console.log('Store', res)
+              resolve(res)
+            })
+            .catch(err => {
+              console.log('Store', err)
+              reject(err)
+            });
+      })
     },
   }
 })
