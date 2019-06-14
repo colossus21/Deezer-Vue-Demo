@@ -1,11 +1,15 @@
 <template>
-  <div class="flex-column-center results-container">
+  <div class="results-container">
     <div class="results">
       <div class="grid-item" :key="item.id" v-for="item in this.$store.state.searchResults.data">
         <img :src="item.album.cover_medium"/>
         <div class="title">{{item.title}}</div>
         <div class="artist">{{item.artist.name}}</div>
         <div class="album">{{item.album.title}}</div>
+        <audio controls class="audio">
+          <source :src="item.preview" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
       </div>
     </div>
   </div>
@@ -16,15 +20,13 @@
 
   .results {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 250px);
-    grid-auto-columns: 400px;
-    grid-auto-rows: 400px;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
     grid-gap: 10px;
   }
   .grid-item {
     background-color: lightcyan;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 5px;
+    padding: 0 10px;
   }
   .title {
     font-family: 'Playfair Display', serif;
@@ -39,7 +41,10 @@
     font-size: 16px;
     font-family: 'Yrsa', serif;
   }
+  .audio {
+    width: 100px;
+  }
   .results-container {
-    width: 100vw;
+
   }
 </style>
