@@ -14,7 +14,8 @@ export default new Vuex.Store({
     getResults: (state) => {
       return state.searchResults
     },
-    getSearchTerm: (state) => state.searchTerm
+    getSearchTerm: (state) => state.searchTerm,
+    getCorHackAPI: (state) => state.corsHackAPI
   },
   mutations: {
     setResults: (state, payload) => { state.searchResults = payload },
@@ -34,6 +35,6 @@ export default new Vuex.Store({
               reject(err)
             });
       })
-    },
+    }
   }
 })
