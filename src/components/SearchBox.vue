@@ -24,8 +24,10 @@
                 this.$store.commit('setSearchTerm', this.searchTerm)
                 this.$store.dispatch('searchTrack').then(res => {
                     this.$emit('resultsFound')
+                    console.log('SearchBox.vue', res)
                 }).catch(err => {
-
+                    search.classList.remove("animate-search")
+                    alert(err)
                 })
             }
         }
