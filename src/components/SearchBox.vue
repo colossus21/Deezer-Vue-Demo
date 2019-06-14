@@ -15,20 +15,25 @@
 <script>
     export default {
         data:()=>({
-            searchTerm:""
+            searchTerm:"",
+            searchDisabled: false
         }),
         methods: {
             search() {
-                let search = document.querySelector(".svg-icon")
-                search.classList.add("animate-search")
-                this.$store.commit('setSearchTerm', this.searchTerm)
-                this.$store.dispatch('searchTrack').then(res => {
-                    this.$emit('resultsFound')
-                    console.log('SearchBox.vue', res)
-                }).catch(err => {
-                    search.classList.remove("animate-search")
-                    alert(err)
-                })
+                if (!this.searchDisabled) {
+                    this.searchDisabled= true
+                    let search = document.querySelector(".svg-icon")
+                    search.classList.add("animate-search")
+                    this.$store.commit('setSearchTerm', this.searchTerm)
+                    this.$store.dispatch('searchTrack').then(res => {
+                        this.$emit('resultsFound')
+                        console.log('SearchBox.vue', res)
+                    }).catch(err => {
+                        search.classList.remove("animate-search")
+                        this.searchDisabled = false
+                        alert(err)
+                    })
+                }
             }
         }
     }
